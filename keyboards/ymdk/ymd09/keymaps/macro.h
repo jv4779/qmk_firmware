@@ -156,7 +156,7 @@ static int song_delay = 3500;
 
 static Macro *m_twist;
 static keypos_t twist_keypos;
-static Macro *m_pop;
+static Macro *m_pop = 0;
 
 
 #ifdef TESTING
@@ -226,6 +226,37 @@ static Macro training2 = { .repeat = 1, .steps = {
   {}
 }};
 
+static Macro m_sevenOne = { .steps = {
+  { "7", .wait = 512 },
+  { "1" },
+  {}
+}};
+static Macro m_sevenThree = { .steps = {
+  { "7", .wait = 512 },
+  { "3" },
+  {}
+}};
+static Macro m_sevenFive = { .steps = {
+  { "7", .wait = 512 },
+  { "5" },
+  {}
+}};
+static Macro m_eightTwo = { .steps = {
+  { "8", .wait = 512 },
+  { "2" },
+  {}
+}};
+static Macro m_eightFour = { .steps = {
+  { "8", .wait = 512 },
+  { "4" },
+  {}
+}};
+static Macro m_eightSix = { .steps = {
+  { "8", .wait = 512 },
+  { "6" },
+  {}
+}};
+
 void macro_post_init_user(void) {
   init_twist(&m_twist2, song_delay);
   init_twist(&m_twist3, song_delay);
@@ -245,6 +276,12 @@ void macro_post_init_user(void) {
   init_twist(&training1, 250);
   init_twist(&training2, 500);
 
+  init_macro(&m_sevenOne);
+  init_macro(&m_sevenThree);
+  init_macro(&m_sevenFive);
+  init_macro(&m_eightTwo);
+  init_macro(&m_eightFour);
+  init_macro(&m_eightSix);
 }
 
 void start_twist(Macro* new_twist, keyrecord_t *record, bool switch_hot_bar) {
@@ -270,7 +307,9 @@ void start_pop(Macro* new_pop) {
     // Resume the twist after this pop song.
     delay_twist_step(m_twist);
   }
-
+  if (m_pop) {
+    end_macro(m_pop);
+  }
   start_macro(new_pop);
   m_pop = new_pop;
 }

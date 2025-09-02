@@ -13,6 +13,12 @@ enum my_keycodes {
   POP6,
   POP7,
   POP8,
+  A1,
+  A3,
+  A5,
+  T2,
+  T4,
+  T6,
   TRAINING1,
   TRAINING2,
   END_TWIST
@@ -22,6 +28,7 @@ enum layer_names {
     _BARD_GRP,
     _BARD_EXP,
     _TRAINING,
+    _PAD,
     _LAYER_CHOOSE,
 };
 
@@ -72,6 +79,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         start_pop(&m_pop8);
       }
       return false;
+    case A1:
+      if (record->event.pressed) {
+        start_pop(&m_sevenOne);
+      }
+      return false;
+    case A3:
+      if (record->event.pressed) {
+        start_pop(&m_sevenThree);
+      }
+      return false;
+    case A5:
+      if (record->event.pressed) {
+        start_pop(&m_sevenFive);
+      }
+      return false;
+    case T2:
+      if (record->event.pressed) {
+        start_pop(&m_eightTwo);
+      }
+      return false;
+    case T4:
+      if (record->event.pressed) {
+        start_pop(&m_eightFour);
+      }
+      return false;
+    case T6:
+      if (record->event.pressed) {
+        start_pop(&m_eightSix);
+      }
+      return false;
     case TRAINING1:
       if (record->event.pressed) {
         start_twist(&training1, record, false);
@@ -108,6 +145,8 @@ bool rgb_matrix_indicators_user(void) {
     rgb_matrix_set_color(g_led_config.matrix_co[0][2], 0, 0, 15);
   } else if (IS_LAYER_ON(_TRAINING)) {
     rgb_matrix_set_color(g_led_config.matrix_co[1][2], 0, 0, 15);
+  } else if (IS_LAYER_ON(_PAD)) {
+    rgb_matrix_set_color(g_led_config.matrix_co[1][0], 0, 0, 15);
   } else {
     rgb_matrix_set_color(g_led_config.matrix_co[0][0], 0, 0, 15);
   }
@@ -122,7 +161,7 @@ bool rgb_matrix_indicators_user(void) {
 }
 
 void matrix_scan_user(void) {
-  int macros_len = 3;
+  int macros_len = 2;
   Macro* macros[] = { m_twist, m_pop };
 
   for (int i=0; i < macros_len; i++) {
@@ -147,7 +186,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_4, KC_5, KC_6, 
                        TRAINING1, TRAINING2, KC_3),
 
+  [_PAD] = LAYOUT(END_TWIST, _______, A5,
+                  T6, T4, A3,
+                  KC_Q, T2, A1),
+
   [_LAYER_CHOOSE] = LAYOUT(TO(_BARD_GRP), _______, TO(_BARD_EXP),
-                           _______, _______, TO(_TRAINING), 
+                           TO(_PAD), _______, TO(_TRAINING),
                            _______, _______, _______),
 };
