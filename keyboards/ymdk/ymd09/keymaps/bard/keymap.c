@@ -2,7 +2,7 @@
 
 //#define TESTING
 
-#include "../macro.h"
+#include "../../../../macro.h"
 
 enum my_keycodes {
   TWIST2 = SAFE_RANGE,
