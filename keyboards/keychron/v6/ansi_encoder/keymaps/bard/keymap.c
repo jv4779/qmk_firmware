@@ -18,7 +18,7 @@
 
 //#define TESTING
 
-#include <ymdk/ymd09/keymaps/macro.h>
+#include <macro.h>
 
 enum layers{
   WIN_BASE,
