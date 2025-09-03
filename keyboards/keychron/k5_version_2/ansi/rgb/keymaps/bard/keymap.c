@@ -146,32 +146,32 @@ void keyboard_post_init_user(void) {
 bool rgb_matrix_indicators_user(void) {
   // Light up choose buttons.
   if (IS_LAYER_ON(WIN_FN)) {
-    rgb_matrix_set_color(16, 0, 0, 255);
-    rgb_matrix_set_color(17, 0, 0, 255);
-    rgb_matrix_set_color(18, 0, 0, 255);
+    rgb_matrix_set_color(14, 0, 0, 255);
+    rgb_matrix_set_color(15, 0, 0, 255);
+    //rgb_matrix_set_color(16, 0, 0, 255);
     return true;
   }
 
   // Clear the backlight on the mode keys.
+  rgb_matrix_set_color(14, 0, 0, 0);
+  rgb_matrix_set_color(15, 0, 0, 0);
   rgb_matrix_set_color(16, 0, 0, 0);
   rgb_matrix_set_color(17, 0, 0, 0);
-  rgb_matrix_set_color(18, 0, 0, 0);
-  rgb_matrix_set_color(19, 0, 0, 0);
 
   // Subtle light up the layer indicator.
   if (IS_LAYER_ON(_BARD_GRP)) {
-    rgb_matrix_set_color(17, 0, 0, 255);
+    rgb_matrix_set_color(15, 0, 0, 255);
   //} else if (IS_LAYER_ON(_ENC_GRP)) {
-  //  rgb_matrix_set_color(18, 0, 0, 255);
+  //  rgb_matrix_set_color(16, 0, 0, 255);
   } else {
-    rgb_matrix_set_color(16, 0, 0, 255);
+    rgb_matrix_set_color(14, 0, 0, 255);
   }
 
   if (m_twist) {
     // Light up the current twist key.
     rgb_matrix_set_color(g_led_config.matrix_co[twist_keypos.row][twist_keypos.col], 255, 255, 255);
     // Light up the stop song key.
-    rgb_matrix_set_color(19, 255, 0, 0);
+    rgb_matrix_set_color(17, 255, 0, 0);
   }
   for (int i=0; s_holds[i]; i++) {
     if (s_holds[i]->active) {
